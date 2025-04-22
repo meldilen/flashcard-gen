@@ -1,0 +1,41 @@
+.generator-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .generator-page h1 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .error {
+    color: #d32f2f;
+    background: #ffebee;
+    padding: 15px;
+    border-radius: 4px;
+    margin: 20px 0;
+    text-align: center;
+  }
+
+  .no-cards {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+  }
+  
+  @media (max-width: 768px) {
+    .generator-page {
+      padding: 15px;
+    }
+    
+    .input-group label {
+      min-width: 100%;
+    }
+    
+    .generate-controls {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }

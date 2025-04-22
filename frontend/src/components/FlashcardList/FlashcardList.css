@@ -1,0 +1,53 @@
+.flashcard-list {
+    margin-top: 30px;
+  }
+  
+  .flashcard {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .flashcard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .flashcard-content {
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .front {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+  }
+  
+  .back {
+    color: #555;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+  }
+  
+  .flashcard-topic {
+    font-size: 0.8em;
+    color: #777;
+    margin-top: 10px;
+  }
+  
+  @media (min-width: 768px) {
+    .flashcard-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+  }

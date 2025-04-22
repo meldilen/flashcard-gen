@@ -1,0 +1,47 @@
+.topic-feedback {
+    background: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 30px;
+    text-align: center;
+  }
+  
+  .rating-stars {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 15px 0;
+  }
+  
+  .star {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 0 5px;
+  }
+  
+  .star.active {
+    color: #ffc107;
+  }
+  
+  .topic-feedback button {
+    background: #4a6fa5;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .topic-feedback button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .topic-feedback button:hover:not(:disabled) {
+    background: #3a5a80;
+  }

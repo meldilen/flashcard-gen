@@ -1,0 +1,33 @@
+.document-upload {
+    margin: 20px 0;
+  }
+  
+  .dropzone {
+    border: 2px dashed #4a6fa5;
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .dropzone.active {
+    background-color: #f0f4f9;
+    border-color: #3a5a80;
+  }
+  
+  .dropzone p {
+    margin: 0;
+    color: #4a6fa5;
+  }
+  
+  .dropzone strong {
+    color: #2c4a6e;
+  }
+  
+  .error {
+    color: #d32f2f;
+    margin-top: 10px;
+    font-size: 0.9em;
+    text-align: center;
+  }
