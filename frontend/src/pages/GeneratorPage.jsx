@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import DocumentUpload from "../components/DocumentUploader/DocumentUpload";
 import UserSettings from "../components/UserSettings/UserSettings";
 import FlashcardList from "../components/FlashcardList/FlashcardList";
 import TopicFeedback from "../components/TopicFeedback/TopicFeedback";
+import { useNavigate } from "react-router-dom";
 import "./GeneratorPage.css";
 
-export default function GeneratorPage() {
-  const [userId, setUserId] = useState("");
+export default function GeneratorPage({ onError }) {
   const [topic, setTopic] = useState("");
   const [cardCount, setCardCount] = useState(5);
   const [file, setFile] = useState(null);
@@ -15,8 +15,22 @@ export default function GeneratorPage() {
   const [topicId, setTopicId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      navigate("/login");
+    }
+  }, [navigate]);
 
   const handleGenerate = async () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+
     if (!file || !topic.trim()) {
       setError("Please upload a file and set a topic");
       return;
@@ -29,12 +43,6 @@ export default function GeneratorPage() {
     formData.append("file", file);
     formData.append("topic_name", topic);
     formData.append("card_count", cardCount);
-    formData.append("user_id", userId);
-
-    console.log('Отправляемые данные:');
-    for (let [key, value] of formData.entries()) {
-        console.log(key, value);
-    }
 
     try {
       const response = await axios.post(
@@ -43,14 +51,19 @@ export default function GeneratorPage() {
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: `Basic ${btoa(
+              `${user.email}:${localStorage.getItem("password")}`
+            )}`,
           },
         }
       );
 
-    setFlashcards(response.data.flashcards);
-    setTopicId(response.data.topic_id);
+      setFlashcards(response.data.flashcards);
+      setTopicId(response.data.topic_id);
     } catch (err) {
-      if (err.response) {
+      if (err.response?.status === 401) {
+        navigate("/login");
+      } else if (err.response) {
         setError(
           err.response.data?.detail ||
             err.response.data?.message ||
@@ -61,15 +74,27 @@ export default function GeneratorPage() {
       } else {
         setError(err.message || "Request error");
       }
+      onError(err.message);
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleFeedback = async (topicId, rating) => {
-    await axios.patch(`http://localhost:8000/topics/${topicId}/feedback`, {
-      rating,
-    });
+    const user = JSON.parse(localStorage.getItem("user"));
+    await axios.patch(
+      `http://localhost:8000/topics/${topicId}/feedback`,
+      {
+        rating,
+      },
+      {
+        headers: {
+          Authorization: `Basic ${btoa(
+            `${user.email}:${localStorage.getItem("password")}`
+          )}`,
+        },
+      }
+    );
   };
 
   return (
@@ -77,10 +102,8 @@ export default function GeneratorPage() {
       <h1>AI Flashcard Generator</h1>
       <DocumentUpload onUpload={setFile} disabled={isLoading} />
       <UserSettings
-        userId={userId}
         topic={topic}
         cardCount={cardCount}
-        onUserIdChange={setUserId}
         onTopicChange={setTopic}
         onCardCountChange={setCardCount}
         onGenerate={handleGenerate}

@@ -1,10 +1,8 @@
 import './UserSettings.css';
 
 export default function UserSettings({
-  userId,
   topic,
   cardCount,
-  onUserIdChange,
   onTopicChange,
   onCardCountChange,
   onGenerate,
@@ -13,15 +11,6 @@ export default function UserSettings({
   return (
     <div className="user-settings">
       <div className="input-group">
-        <label>
-          User ID:
-          <input
-            type="text"
-            value={userId}
-            onChange={(e) => onUserIdChange(e.target.value)}
-            placeholder="Enter your ID"
-          />
-        </label>
         <label>
           Topic:
           <input

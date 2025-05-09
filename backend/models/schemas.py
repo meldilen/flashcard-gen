@@ -1,6 +1,6 @@
 import uuid
-from pydantic import BaseModel, Field
-from typing import List, Optional
+from pydantic import BaseModel, Field, EmailStr
+from typing import Optional
 
 class TopicBase(BaseModel):
     name: str
@@ -37,6 +37,20 @@ class Flashcard(FlashcardBase):
 class DocumentProcessRequest(BaseModel):
     card_count: int = 5
 
-class UserCreate(BaseModel):
-    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+class UserBase(BaseModel):
+    email: EmailStr
     username: str
+
+class UserCreate(UserBase):
+    password: str
+
+class UserUpdate(BaseModel):
+    username: Optional[str] = None
+    email: Optional[EmailStr] = None
+    password: Optional[str] = None
+
+class UserResponse(UserBase):
+    id: str
+        
+    class Config:
+        from_attributes = True

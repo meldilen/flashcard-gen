@@ -1,0 +1,110 @@
+.profile-page {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-page h1 {
+  color: #2c3e50;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+.profile-info {
+  background: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 6px;
+  margin-bottom: 2rem;
+}
+
+.profile-info p {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.profile-edit .form-group {
+  margin-bottom: 1rem;
+}
+
+.profile-edit .form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #34495e;
+}
+
+.profile-edit .form-group input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.user-topics h2 {
+  margin: 1.5rem 0 1rem;
+  color: #2c3e50;
+}
+
+.user-topics ul {
+  list-style: none;
+  padding: 0;
+}
+
+.user-topics li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  border-bottom: 1px solid #eee;
+}
+
+.user-topics li span {
+  cursor: pointer;
+  color: #3498db;
+}
+
+.user-topics li span:hover {
+  text-decoration: underline;
+}
+
+.user-topics li button {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 0.3rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+.error {
+  color: #e74c3c;
+  margin: 1rem 0;
+  padding: 0.5rem;
+  background: #fadbd8;
+  border-radius: 4px;
+}
+
+@media (max-width: 600px) {
+  .profile-page {
+    margin: 1rem;
+    padding: 1rem;
+  }
+}
