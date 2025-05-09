@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import './UserSettings.css';
 
 export default function UserSettings({

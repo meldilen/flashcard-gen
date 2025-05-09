@@ -1,6 +1,6 @@
 from typing import List
-from ..models import schemas
-from ..models.topic import Topic
+from models import schemas
+from models.topic import Topic
 
 
 class FlashcardGenerator:

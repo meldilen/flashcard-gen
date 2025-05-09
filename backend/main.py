@@ -5,11 +5,11 @@ from sqlalchemy.orm import Session
 from typing import Optional
 import logging
 
-from .db.database import get_db, init_db
-from .db import crud
-from .models import schemas
-from .services.document_processor import DocumentProcessor
-from .services.flashcard_generator import FlashcardGenerator
+from db.database import get_db, init_db
+from db import crud
+from models import schemas
+from services.document_processor import DocumentProcessor
+from services.flashcard_generator import FlashcardGenerator
 
 init_db()
 
@@ -127,4 +127,4 @@ def read_root():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
