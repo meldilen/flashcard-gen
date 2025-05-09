@@ -13,7 +13,7 @@ from services.flashcard_generator import FlashcardGenerator
 
 init_db()
 
-app = FastAPI()
+app = FastAPI(docs_url="/docs", redoc_url="/redoc")
 logger = logging.getLogger(__name__)
 
 app.add_middleware(
