@@ -5,15 +5,15 @@ from sqlalchemy.orm import Session
 from typing import Optional
 import logging
 
-from .db.database import get_db, init_db
-from .db import crud
-from .models import schemas
-from .services.document_processor import DocumentProcessor
-from .services.flashcard_generator import FlashcardGenerator
+from db.database import get_db, init_db
+from db import crud
+from models import schemas
+from services.document_processor import DocumentProcessor
+from services.flashcard_generator import FlashcardGenerator
 
 init_db()
 
-app = FastAPI()
+app = FastAPI(docs_url="/docs", redoc_url="/redoc")
 logger = logging.getLogger(__name__)
 
 app.add_middleware(

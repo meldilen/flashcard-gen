@@ -1,9 +1,9 @@
 from sqlalchemy.orm import Session
 
-from backend.models import schemas
-from ..models.flashcard import Flashcard
-from ..models.topic import Topic
-from ..models.user import User
+from models import schemas
+from models.flashcard import Flashcard
+from models.topic import Topic
+from models.user import User
 
 
 def create_user(db: Session, user_data: schemas.UserCreate):

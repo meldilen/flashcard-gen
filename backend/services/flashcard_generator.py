@@ -1,6 +1,8 @@
 from typing import List
-from ..models import schemas
-from ..models.topic import Topic
+from models import schemas
+from models.topic import Topic
+
+llm_model = "llama3.2:3b"
 
 
 class FlashcardGenerator:
