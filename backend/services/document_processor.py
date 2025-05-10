@@ -3,6 +3,8 @@ import pdfplumber
 from typing import Tuple
 import io
 
+FILE_SIZE_LIMIT = 10 * 1024 * 1024  # 10MB
+
 #should be changed
 class DocumentProcessor:
     @staticmethod
@@ -30,5 +32,5 @@ class DocumentProcessor:
         if file.content_type not in ["application/pdf", "text/plain"]:
             raise ValueError("Invalid file type")
         
-        if file.size > 10 * 1024 * 1024:  # 10MB max
+        if file.size > FILE_SIZE_LIMIT:
             raise ValueError("File too large")
