@@ -2,14 +2,24 @@ from typing import List
 import json
 from models import schemas
 from models.topic import Topic  
-from langchain_ollama import ChatOllama
+from langchain_ollama import ChatOllama, OllamaEmbeddings
 from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.vectorstores import InMemoryVectorStore
 from langchain.schema.runnable import RunnablePassthrough
 from langchain.schema.output_parser import StrOutputParser
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 import re
 
-llm_model = "llama3.1:8b"
-model = ChatOllama(model=llm_model)
+llm_model_name = "llama3.1:8b"
+embeddings_model_name = "mxbai-embed-large"
+
+llm_model = ChatOllama(model=llm_model_name)
+embeddings_model = OllamaEmbeddings(model=embeddings_model_name)
+
+text_splitter = RecursiveCharacterTextSplitter(
+    chunk_size=768,
+    chunk_overlap=128,
+)
 
 prompt = ChatPromptTemplate.from_template(
     """
@@ -41,16 +51,24 @@ class FlashcardGenerator:
         """
         Generate flashcards from the provided text using the LLM model.
         """
+
+        docs = text_splitter.split_text(text)
+        vector_store = InMemoryVectorStore.from_texts(
+            docs,
+            embeddings_model
+        )
+        retriever = vector_store.as_retriever(search_kwargs={"k": count})
+        context = '\n'.join(x.page_content for x in retriever.invoke(topic.name))
         
         formatted_input = {
-            "text": text,
+            "text": context,
             "count": count
         }
 
         chain = (
             RunnablePassthrough()
             | prompt
-            | model
+            | llm_model
             | StrOutputParser()
         )
         
