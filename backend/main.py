@@ -66,7 +66,7 @@ def register(user_data: schemas.UserCreate, db: Session = Depends(get_db)):
     return convert_to_user_response(db_user)
 
 
-@app.post("/login", response_model=schemas.UserResponse)
+@app.get("/login", response_model=schemas.UserResponse)
 def login(current_user: schemas.UserResponse = Depends(get_current_user)):
     return current_user
 
