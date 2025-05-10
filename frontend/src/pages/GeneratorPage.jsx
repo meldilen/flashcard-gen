@@ -24,6 +24,23 @@ export default function GeneratorPage({ onError }) {
     }
   }, [navigate]);
 
+  const validateInputs = () => {
+    if (!file) {
+      setError("Please upload a document first");
+      return false;
+    }
+    if (!topic.trim()) {
+      setError("Please enter a topic name");
+      return false;
+    }
+    if (cardCount < 1 || cardCount > 20) {
+      setError("Please select between 1 and 20 flashcards");
+      return false;
+    }
+    setError("");
+    return true;
+  };
+
   const handleGenerate = async () => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (!user) {
@@ -31,13 +48,11 @@ export default function GeneratorPage({ onError }) {
       return;
     }
 
-    if (!file || !topic.trim()) {
-      setError("Please upload a file and set a topic");
+    if (!validateInputs()) {
       return;
     }
 
     setIsLoading(true);
-    setError("");
 
     const formData = new FormData();
     formData.append("file", file);

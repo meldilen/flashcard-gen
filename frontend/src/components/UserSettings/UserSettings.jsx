@@ -21,28 +21,25 @@ export default function UserSettings({
           disabled={isLoading}
         />
       </div>
-      <div className="generate-controls">
-        <div className="form-group">
-          <label htmlFor="cardCount">Cards to generate:</label>
-          <input
-            id="cardCount"
-            type="number"
-            min="1"
-            max="20"
-            value={cardCount}
-            onChange={(e) => onCardCountChange(e.target.value)}
-            disabled={isLoading}
-          />
-        </div>
-        <button 
-          type="button" 
-          onClick={onGenerate} 
-          disabled={isLoading || !topic.trim()}
-          className="generate-btn"
-        >
-          {isLoading ? 'Generating...' : 'Generate Flashcards'}
-        </button>
+      <div className="form-group">
+        <label htmlFor="cardCount">Cards to generate (1-20):</label>
+        <input
+          id="cardCount"
+          type="number"
+          min="1"
+          max="20"
+          value={cardCount}
+          onChange={(e) => onCardCountChange(e.target.value)}
+          disabled={isLoading}
+        />
       </div>
+      <button 
+        className="generate-btn"
+        onClick={onGenerate}
+        disabled={isLoading}
+      >
+        {isLoading ? 'Generating...' : 'Generate Flashcards'}
+      </button>
     </div>
   );
 }
