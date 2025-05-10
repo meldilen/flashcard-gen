@@ -1,79 +1,36 @@
-/* Базовые стили */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
 :root {
-  --primary-color: #4a6fa5;
-  --primary-dark: #3a5a80;
-  --error-color: #d32f2f;
-  --text-color: #2c3e50;
-  --bg-color: #f5f7fa;
+  --primary-light: #E8F5E9;
+  --primary-soft: #A5D6A7;
+  --primary-muted: #66BB6A;
+  --secondary-light: #F5F5F5;
+  --secondary-soft: #EEEEEE;
+  --text-dark: #263238;
+  --text-light: #FAFAFA;
+  --error-bg: #FFEBEE;
+  --error-text: #C62828;
+
+  --shadow-soft: 6px 6px 12px #d9d9d9, 
+                -6px -6px 12px #ffffff;
+  --shadow-pressed: inset 3px 3px 6px #d9d9d9, 
+                   inset -3px -3px 6px #ffffff;
+  --radius-small: 12px;
+  --radius-large: 20px;
+
+  --max-content-width: 1200px;
 }
 
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  line-height: 1.6;
-}
-
-/* Layout */
-.app {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.app-content {
-  flex: 1;
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
-}
-
-/* Глобальные ошибки */
-.global-error {
-  background-color: #ffebee;
-  color: var(--error-color);
-  padding: 15px;
-  border-radius: 4px;
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.global-error button {
-  background: none;
-  border: 1px solid var(--error-color);
-  color: var(--error-color);
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.global-error button:hover {
-  background-color: var(--error-color);
-  color: white;
-}
-
-/* Адаптивность */:root {
-  --primary-color: #3498db;
-  --secondary-color: #2c3e50;
-  --error-color: #e74c3c;
-  --background-light: #f5f7fa;
-  --text-dark: #2c3e50;
-  --text-light: #ecf0f1;
-}
-
-body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', sans-serif;
-  background-color: var(--background-light);
+  font-family: 'Inter', -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--secondary-light);
   color: var(--text-dark);
   line-height: 1.6;
 }
@@ -82,40 +39,47 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background: var(--secondary-light);
 }
 
 .app-content {
   flex: 1;
-  padding: 1rem;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  animation: fadeIn 0.4s ease-out;
 }
 
 .global-error {
-  background: #fadbd8;
-  color: var(--error-color);
+  background: var(--error-bg);
+  color: var(--error-text);
   padding: 1rem;
-  margin: 1rem;
-  border-radius: 4px;
+  border-radius: var(--radius-small);
+  margin-bottom: 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: var(--shadow-soft);
 }
 
 .global-error button {
   background: none;
   border: none;
-  color: var(--error-color);
+  color: var(--error-text);
   cursor: pointer;
   font-weight: bold;
+  font-size: 1.2rem;
+  padding: 0 0.5rem;
 }
 
-@media (min-width: 1200px) {
-  .app-content {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-}
 @media (max-width: 768px) {
   .app-content {
-    padding: 15px;
+    padding: 1rem;
   }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }

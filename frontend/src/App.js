@@ -14,29 +14,25 @@ export default function App() {
     <Router>
       <div className="app">
         <Header />
-        
         <main className="app-content">
           {globalError && (
-            <div className="global-error">
+            <div className="global-error" role="alert">
               {globalError}
-              <button onClick={() => setGlobalError(null)}>Close</button>
+              <button 
+                onClick={() => setGlobalError(null)}
+                aria-label="Close"
+              >
+                ✕
+              </button>
             </div>
           )}
-
           <Routes>
             <Route path="/login" element={<AuthPage />} />
             <Route path="/profile" element={<ProfilePage />} />
-            <Route 
-              path="/generate" 
-              element={<GeneratorPage onError={(message) => setGlobalError(message)} />} 
-            />
-            <Route 
-              path="/" 
-              element={<GeneratorPage onError={(message) => setGlobalError(message)} />} 
-            />
+            <Route path="/generate" element={<GeneratorPage onError={setGlobalError} />} />
+            <Route path="/" element={<GeneratorPage onError={setGlobalError} />} />
           </Routes>
         </main>
-
         <Footer />
       </div>
     </Router>

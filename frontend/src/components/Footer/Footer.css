@@ -1,11 +1,31 @@
 .app-footer {
-  background: var(--secondary-color);
-  color: var(--text-light);
+  background: var(--secondary-soft);
+  color: var(--text-dark);
+  padding: 1.5rem clamp(1rem, 5vw, 2rem);
   text-align: center;
-  padding: 1rem;
-  margin-top: 2rem;
+  margin-top: auto;
 }
 
-.app-footer p {
-  margin: 0;
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.footer-links a {
+  color: var(--primary-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
 }

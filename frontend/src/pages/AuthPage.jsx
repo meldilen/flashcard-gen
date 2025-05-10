@@ -23,14 +23,9 @@ export default function AuthPage() {
             Authorization: `Basic ${authString}`,
           },
         });
-        // const response = await axios.post(
-        //   "http://localhost:8000/login",
-        //   { username: email, password },
-        //   { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
-        // );
         localStorage.setItem("user", JSON.stringify(response.data));
-        localStorage.setItem('password', password);
-        navigate("/generate"); //может здесь на профиль перенаправлять?
+        localStorage.setItem("password", password);
+        navigate("/generate");
       } else {
         const response = await axios.post("http://localhost:8000/register/", {
           username,
@@ -38,8 +33,8 @@ export default function AuthPage() {
           password,
         });
         localStorage.setItem("user", JSON.stringify(response.data));
-        localStorage.setItem('password', password);
-        navigate("/generate"); // и здесь тоже???
+        localStorage.setItem("password", password);
+        navigate("/generate");
       }
     } catch (err) {
       if (err.response) {
@@ -66,34 +61,66 @@ export default function AuthPage() {
       <form onSubmit={handleSubmit}>
         {!isLogin && (
           <div className="form-group">
-            <label>Username:</label>
+            <label htmlFor="username">Username:</label>
             <input
+              id="username"
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              placeholder="Enter your username"
               required
+              title="Username is required"
+              onInvalid={(e) => {
+                e.target.setCustomValidity("Please enter your name");
+              }}
+              onInput={(e) => e.target.setCustomValidity("")}
             />
           </div>
         )}
         <div className="form-group">
-          <label>Email:</label>
+          <label htmlFor="email">Email:</label>
           <input
+            id="email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            placeholder="your.email@example.com"
             required
+            title="Please enter a valid email address (e.g., user@example.com)"
+            onInvalid={(e) => {
+              if (e.target.validity.valueMissing) {
+                e.target.setCustomValidity("Please enter your email");
+              } else if (e.target.validity.typeMismatch) {
+                e.target.setCustomValidity(
+                  "Please enter a valid email address"
+                );
+              }
+            }}
+            onInput={(e) => e.target.setCustomValidity("")}
           />
         </div>
         <div className="form-group">
-          <label>Password:</label>
+          <label htmlFor="password">Password:</label>
           <input
+            id="password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter your password"
             required
+            title="Password is required"
+            onInvalid={(e) => {
+              e.target.setCustomValidity("Please enter your password");
+            }}
+            onInput={(e) => e.target.setCustomValidity("")}
           />
         </div>
-        {error && <div className="error">{error}</div>}
+        {error && (
+          <div className="error-message">
+            <div className="error-icon">⚠️</div>
+            <div className="error-text">{error}</div>
+          </div>
+        )}
         <button type="submit">{isLogin ? "Log in" : "Sign Up"}</button>
       </form>
       <button
