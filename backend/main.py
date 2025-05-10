@@ -120,6 +120,22 @@ def update_topic_feedback(
         raise HTTPException(status_code=500, detail="Internal server error")
 
 
+@app.get("/topics/{topic_id}/")
+def get_topic_flashcards(
+    topic_id: str,
+    user_id: str,
+    db: Session = Depends(get_db)
+):
+    try:
+        flashcards = crud.get_topic_flashcards(db, user_id, topic_id)
+        if not flashcards:
+            raise HTTPException(status_code=404, detail="No flashcards found for this topic")
+        return [schemas.Flashcard.model_validate(f).model_dump() for f in flashcards]
+    except Exception as e:
+        logger.error(f"Get topic flashcards error: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=500, detail="Internal server error")
+
+
 @app.get("/")
 def read_root():
     return {"message": "Flashcard Generator API"}

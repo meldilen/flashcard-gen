@@ -53,6 +53,13 @@ def get_topic(db: Session, topic_id: str):
     return db.query(Topic).filter(Topic.id == topic_id).first()
 
 
+def get_topic_flashcards(db: Session, user_id: str, topic_id: str = None):
+    query = db.query(Flashcard).filter(Flashcard.user_id == user_id)
+    if topic_id:
+        query = query.filter(Flashcard.topic_id == topic_id)
+    return query.all()
+
+
 def update_topic_feedback(db: Session, topic_id: str, feedback: float):
     db_topic = get_topic(db, topic_id)
     if not db_topic:
