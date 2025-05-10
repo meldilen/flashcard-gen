@@ -61,7 +61,59 @@ body {
   color: white;
 }
 
-/* Адаптивность */
+/* Адаптивность */:root {
+  --primary-color: #3498db;
+  --secondary-color: #2c3e50;
+  --error-color: #e74c3c;
+  --background-light: #f5f7fa;
+  --text-dark: #2c3e50;
+  --text-light: #ecf0f1;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', sans-serif;
+  background-color: var(--background-light);
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-content {
+  flex: 1;
+  padding: 1rem;
+}
+
+.global-error {
+  background: #fadbd8;
+  color: var(--error-color);
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.global-error button {
+  background: none;
+  border: none;
+  color: var(--error-color);
+  cursor: pointer;
+  font-weight: bold;
+}
+
+@media (min-width: 1200px) {
+  .app-content {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}
 @media (max-width: 768px) {
   .app-content {
     padding: 15px;
