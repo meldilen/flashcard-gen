@@ -14,6 +14,7 @@ export default function ProfilePage() {
     email: "",
     password: "",
     newPassword: "",
+    optOutCommunications: false
   });
   const navigate = useNavigate();
 
@@ -42,6 +43,7 @@ export default function ProfilePage() {
           email: userResponse.data.email,
           password: "",
           newPassword: "",
+          optOutCommunications: userResponse.data.optOutCommunications || false
         });
 
         const topicsResponse = await axios.get(
@@ -78,6 +80,7 @@ export default function ProfilePage() {
       const updateData = {
         username: formData.username,
         email: formData.email,
+        optOutCommunications: formData.optOutCommunications,
         ...(formData.newPassword && { password: formData.newPassword }),
       };
 
@@ -118,6 +121,13 @@ export default function ProfilePage() {
     } catch (err) {
       setError("Topic deletion error");
     }
+  };
+
+  const toggleOptOut = () => {
+    setFormData({
+      ...formData,
+      optOutCommunications: !formData.optOutCommunications
+    });
   };
 
   if (!user & loading) return <div>Loading...</div>;
@@ -170,6 +180,19 @@ export default function ProfilePage() {
               }
             />
           </div>
+          <div className="preference-item">
+            <label>
+              <input
+                type="checkbox"
+                checked={formData.optOutCommunications}
+                onChange={toggleOptOut}
+              />
+              Opt-out of all non-essential communications
+            </label>
+            <p className="hint">
+              Check this box to stop receiving promotional emails
+            </p>
+          </div>
           <button onClick={handleUpdate}>Save</button>
           <button onClick={() => setEditMode(false)}>Cancel</button>
         </div>
@@ -180,6 +203,10 @@ export default function ProfilePage() {
           </p>
           <p>
             <strong>Email:</strong> {user.email}
+          </p>
+          <p>
+            <strong>Communication preferences:</strong>{" "}
+            {user.optOutCommunications ? "Opted out" : "Subscribed"}
           </p>
           <button onClick={() => setEditMode(true)}>Edit Profile</button>
         </div>

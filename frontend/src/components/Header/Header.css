@@ -24,24 +24,72 @@
   gap: 1rem;
 }
 
-.app-header button {
-  background: var(--secondary-light);
-  color: var(--text-dark);
+.nav-btn {
   border: none;
   padding: 0.85rem 1.5rem;
   border-radius: var(--radius-small);
   cursor: pointer;
-  box-shadow: var(--shadow-soft);
   font-weight: 500;
   transition: all 0.3s ease;
   font-size: 1rem;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.app-header button:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+.nav-btn::before {
+  content: "";
+  display: inline-block;
+  width: 1.2em;
+  height: 1.2em;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: brightness(0) invert(1);
+}
+
+.login-btn,
+.generator-btn,
+.profile-btn {
+  background: linear-gradient(135deg, var(--primary-soft), var(--primary-muted));
+  color: white;
+}
+
+.login-btn::before {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>');
+}
+
+.generator-btn::before {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-5 3c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm4 8h-8v-1c0-1.33 2.67-2 4-2s4 .67 4 2v1z"/></svg>');
+}
+
+.profile-btn::before {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>');
+}
+
+.logout-btn {
+  background: linear-gradient(135deg, #ff5f6d, #ff8a65);
+  color: white;
+}
+
+.logout-btn::before {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>');
+}
+
+.nav-btn:hover {
   transform: translateY(-2px);
-  background: var(--secondary-soft);
-  color: var(--primary-muted);
+  box-shadow: 0 4px 12px rgba(101, 187, 106, 0.3);
+}
+
+.login-btn:hover,
+.generator-btn:hover,
+.profile-btn:hover {
+  background: linear-gradient(135deg, var(--primary-muted), var(--primary-soft));
+}
+
+.logout-btn:hover {
+  background: linear-gradient(135deg, #ff8a65, #ff5f6d);
 }
 
 .logo {
@@ -56,10 +104,4 @@
 
 .logo-icon {
   font-size: 2.5rem;
-}
-
-.login-btn {
-  background: linear-gradient(135deg, var(--primary-soft), var(--primary-muted)) !important;
-  color: white !important;
-   box-shadow: 0 4px 12px rgba(101, 187, 106, 0.3);
 }

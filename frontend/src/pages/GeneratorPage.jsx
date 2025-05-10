@@ -99,23 +99,50 @@ export default function GeneratorPage({ onError }) {
 
   return (
     <div className="generator-page">
-      <h1>AI Flashcard Generator</h1>
-      <DocumentUpload onUpload={setFile} disabled={isLoading} />
-      <UserSettings
-        topic={topic}
-        cardCount={cardCount}
-        onTopicChange={setTopic}
-        onCardCountChange={setCardCount}
-        onGenerate={handleGenerate}
-        isLoading={isLoading}
-      />
-      {error && (
-        <div className="error">
-          {typeof error === "string" ? error : JSON.stringify(error)}
+      <div className="generator-header">
+        <h1>AI Flashcard Generator</h1>
+        <p className="subtitle">Upload your document and get instant flashcards</p>
+      </div>
+
+      <div className="generator-container">
+        <div className="input-section">
+          <DocumentUpload onUpload={setFile} disabled={isLoading} />
+          
+          <UserSettings
+            topic={topic}
+            cardCount={cardCount}
+            onTopicChange={setTopic}
+            onCardCountChange={setCardCount}
+            onGenerate={handleGenerate}
+            isLoading={isLoading}
+          />
+
+          {error && (
+            <div className="error-message">
+              <div className="error-icon">⚠️</div>
+              <div className="error-text">{error}</div>
+            </div>
+          )}
         </div>
-      )}
-      <FlashcardList flashcards={flashcards} topicName={topic} />
-      {topicId && <TopicFeedback topicId={topicId} onSubmit={handleFeedback} />}
+
+        <div className="output-section">
+          {flashcards.length > 0 ? (
+            <>
+              <div className="flashcards-header">
+                <h2>Generated Flashcards: {topic}</h2>
+                {topicId && <TopicFeedback topicId={topicId} onSubmit={handleFeedback} />}
+              </div>
+              <FlashcardList flashcards={flashcards} topicName={topic} />
+            </>
+          ) : (
+            <div className="empty-state">
+              <div className="empty-icon">📄</div>
+              <h3>No flashcards yet</h3>
+              <p>Upload a document and click "Generate Flashcards" to get started</p>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

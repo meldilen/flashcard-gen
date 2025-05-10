@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { useState } from "react";
 import GeneratorPage from "./pages/GeneratorPage";
 import AuthPage from "./pages/AuthPage";
 import ProfilePage from "./pages/ProfilePage";
@@ -11,18 +11,6 @@ import "./App.css";
 
 export default function App() {
   const [globalError, setGlobalError] = useState(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const user = localStorage.getItem("user");
-    setIsAuthenticated(!!user);
-    setIsLoading(false);
-  }, []);
-
-  if (isLoading) {
-    return <div className="app-loading">Loading...</div>;
-  }
 
   return (
     <Router>
@@ -41,28 +29,11 @@ export default function App() {
             </div>
           )}
           <Routes>
-            <Route 
-              path="/" 
-              element={
-                isAuthenticated ? (
-                  <GeneratorPage onError={setGlobalError} />
-                ) : (
-                  <Navigate to="/login" replace />
-                )
-              } 
-            />
+            <Route path="/" element={<Navigate to="/login" replace />} />
+            
             <Route path="/login" element={<AuthPage />} />
             <Route path="/profile" element={<ProfilePage />} />
-            <Route
-              path="/generate"
-              element={
-                isAuthenticated ? (
-                  <GeneratorPage onError={setGlobalError} />
-                ) : (
-                  <Navigate to="/login" replace />
-                )
-              }
-            />
+            <Route path="/generate" element={<GeneratorPage onError={setGlobalError}/>} />
             <Route path="/privacy" element={<PrivacyPolicyPage />} />
             <Route path="/terms" element={<TermsPage />} />
           </Routes>

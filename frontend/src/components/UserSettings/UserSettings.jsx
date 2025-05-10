@@ -10,29 +10,36 @@ export default function UserSettings({
 }) {
   return (
     <div className="user-settings">
-      <div className="input-group">
-        <label>
-          Topic:
-          <input
-            type="text"
-            value={topic}
-            onChange={(e) => onTopicChange(e.target.value)}
-            placeholder="Enter topic name"
-          />
-        </label>
+      <div className="form-group">
+        <label htmlFor="topic">Topic:</label>
+        <input
+          id="topic"
+          type="text"
+          value={topic}
+          onChange={(e) => onTopicChange(e.target.value)}
+          placeholder="Enter topic name"
+          disabled={isLoading}
+        />
       </div>
       <div className="generate-controls">
-        <label>
-          Cards to generate:
+        <div className="form-group">
+          <label htmlFor="cardCount">Cards to generate:</label>
           <input
+            id="cardCount"
             type="number"
             min="1"
             max="20"
             value={cardCount}
             onChange={(e) => onCardCountChange(e.target.value)}
+            disabled={isLoading}
           />
-        </label>
-        <button onClick={onGenerate} disabled={isLoading}>
+        </div>
+        <button 
+          type="button" 
+          onClick={onGenerate} 
+          disabled={isLoading || !topic.trim()}
+          className="generate-btn"
+        >
           {isLoading ? 'Generating...' : 'Generate Flashcards'}
         </button>
       </div>

@@ -34,7 +34,7 @@ export default function DocumentUpload({ onUpload, disabled }) {
     <div className="document-upload">
       <div
         {...getRootProps()}
-        className={`dropzone ${isDragActive ? "active" : ""}`}
+        className={`dropzone ${isDragActive ? "active" : ""} ${disabled ? "disabled" : ""}`}
       >
         <input {...getInputProps()} />
         {file ? (
@@ -45,7 +45,12 @@ export default function DocumentUpload({ onUpload, disabled }) {
           <p>Drag & drop PDF/TXT file, or click to browse</p>
         )}
       </div>
-      {error && <div className="error">{error}</div>}
+      {error && (
+        <div className="error-message">
+          <div className="error-icon">⚠️</div>
+          <div className="error-text">{error}</div>
+        </div>
+      )}
     </div>
   );
 }

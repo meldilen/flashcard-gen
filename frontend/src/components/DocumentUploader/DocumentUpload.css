@@ -1,33 +1,53 @@
 .document-upload {
-    margin: 20px 0;
-  }
-  
-  .dropzone {
-    border: 2px dashed #4a6fa5;
-    border-radius: 8px;
-    padding: 30px;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .dropzone.active {
-    background-color: #f0f4f9;
-    border-color: #3a5a80;
-  }
-  
-  .dropzone p {
-    margin: 0;
-    color: #4a6fa5;
-  }
-  
-  .dropzone strong {
-    color: #2c4a6e;
-  }
-  
-  .error {
-    color: #d32f2f;
-    margin-top: 10px;
-    font-size: 0.9em;
-    text-align: center;
-  }
+  background: var(--secondary-light);
+  border-radius: var(--radius-large);
+  padding: 2rem;
+  box-shadow: var(--shadow-soft);
+}
+
+.dropzone {
+  border: 2px dashed var(--primary-soft);
+  border-radius: var(--radius-medium);
+  padding: 3rem 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: var(--secondary-light);
+}
+
+.dropzone:hover:not(.disabled) {
+  border-color: var(--primary-muted);
+  background: var(--secondary-soft);
+}
+
+.dropzone.active {
+  background-color: var(--secondary-soft);
+  border-color: var(--primary-muted);
+}
+
+.dropzone.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.dropzone p {
+  margin: 0;
+  color: var(--text-dark);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.dropzone strong {
+  color: var(--primary-muted);
+  font-weight: 600;
+  display: block;
+  margin-top: 0.5rem;
+  word-break: break-all;
+}
+
+.upload-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--primary-soft);
+  display: block;
+}

@@ -25,6 +25,7 @@ export default function AuthPage() {
         });
         localStorage.setItem("user", JSON.stringify(response.data));
         localStorage.setItem("password", password);
+        window.dispatchEvent(new Event('storage'));
         navigate("/generate");
       } else {
         const response = await axios.post("http://localhost:8000/register/", {
@@ -34,6 +35,7 @@ export default function AuthPage() {
         });
         localStorage.setItem("user", JSON.stringify(response.data));
         localStorage.setItem("password", password);
+        window.dispatchEvent(new Event('storage'));
         navigate("/generate");
       }
     } catch (err) {

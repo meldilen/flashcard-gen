@@ -42,7 +42,8 @@ export default function PrivacyPolicyPage() {
           <ul>
             <li>Access your personal data</li>
             <li>Request deletion of your data</li>
-            <li>Opt-out of communications</li>
+            <li>Opt-out of non-essential communications via <a href="/profile">Profile Settings</a></li>
+            <li>Unsubscribe from emails using the link in each message</li>
           </ul>
         </section>
 
