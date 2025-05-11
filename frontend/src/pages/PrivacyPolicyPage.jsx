@@ -14,6 +14,10 @@ export default function PrivacyPolicyPage() {
             <li>Username</li>
             <li>Documents you upload for flashcard generation</li>
           </ul>
+          <p className="notice">
+            <strong>Important:</strong> By default, we do not store the documents you upload after processing. 
+            They are temporarily used to generate flashcards and then immediately deleted from our servers.
+          </p>
         </section>
 
         <section>

@@ -1,9 +1,14 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import TopicFeedback from '../TopicFeedback/TopicFeedback';
-import './FlashcardList.css';
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import TopicFeedback from "../TopicFeedback/TopicFeedback";
+import "./FlashcardList.css";
 
-export default function FlashcardList({ flashcards, topicName, topicId, onSubmitFeedback }) {
+export default function FlashcardList({
+  flashcards,
+  topicName,
+  topicId,
+  onSubmitFeedback,
+}) {
   const [expandedCardId, setExpandedCardId] = useState(null);
 
   return (
@@ -16,11 +21,15 @@ export default function FlashcardList({ flashcards, topicName, topicId, onSubmit
           {flashcards.map((card) => (
             <motion.div
               key={card.id}
-              className={`flashcard-card ${expandedCardId === card.id ? 'is-flipped' : ''}`}
-              onClick={() => setExpandedCardId(card.id === expandedCardId ? null : card.id)}
+              className={`flashcard-card ${
+                expandedCardId === card.id ? "is-flipped" : ""
+              }`}
+              onClick={() =>
+                setExpandedCardId(card.id === expandedCardId ? null : card.id)
+              }
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ type: 'spring', stiffness: 300 }}
+              transition={{ type: "spring", stiffness: 300 }}
             >
               <div className="flashcard-inner">
                 <div className="flashcard-front">
@@ -30,11 +39,14 @@ export default function FlashcardList({ flashcards, topicName, topicId, onSubmit
                   </div>
                   <div className="flashcard-hint">Click to flip</div>
                 </div>
-                
+
                 <div className="flashcard-back">
                   <div className="flashcard-answer">
                     <span className="answer-mark">!</span>
                     {card.answer}
+                  </div>
+                  <div className="ai-tag-ribbon">
+                    AI-generated, for reference only
                   </div>
                 </div>
               </div>

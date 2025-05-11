@@ -117,12 +117,24 @@ export default function GeneratorPage({ onError }) {
       <div className="generator-header">
         <h1>AI Flashcard Generator</h1>
         <p className="subtitle">Upload your document and get flashcards</p>
+
+        <div className="ai-disclaimer">
+          <div className="ai-disclaimer-icon">🤖</div>
+          <div className="ai-disclaimer-content">
+            <p>
+              This service analyzes your documents using AI to automatically
+              create flashcards. While we strive for accuracy, please review the
+              generated content as AI may occasionally produce imperfect
+              results.
+            </p>
+          </div>
+        </div>
       </div>
 
       <div className="generator-container">
         <div className="input-section">
           <DocumentUpload onUpload={setFile} disabled={isLoading} />
-          
+
           <UserSettings
             topic={topic}
             cardCount={cardCount}
@@ -142,9 +154,9 @@ export default function GeneratorPage({ onError }) {
 
         <div className="output-section">
           {flashcards.length > 0 ? (
-            <FlashcardList 
-              flashcards={flashcards} 
-              topicName={topic} 
+            <FlashcardList
+              flashcards={flashcards}
+              topicName={topic}
               topicId={topicId}
               onSubmitFeedback={handleFeedback}
             />
@@ -152,7 +164,9 @@ export default function GeneratorPage({ onError }) {
             <div className="empty-state">
               <div className="empty-icon">📄</div>
               <h3>No flashcards yet</h3>
-              <p>Upload a document and click "Generate Flashcards" to get started</p>
+              <p>
+                Upload a document and click "Generate Flashcards" to get started
+              </p>
             </div>
           )}
         </div>

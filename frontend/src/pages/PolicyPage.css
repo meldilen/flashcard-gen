@@ -50,6 +50,18 @@
   text-align: right;
 }
 
+.notice {
+  background-color: var(--primary-light);
+  padding: 1rem;
+  border-radius: var(--radius-small);
+  border-left: 4px solid var(--primary-dark);
+  margin: 1rem 0;
+}
+
+.notice strong {
+  color: var(--primary-dark);
+}
+
 @media (max-width: 768px) {
   .policy-page {
     padding: 1rem;

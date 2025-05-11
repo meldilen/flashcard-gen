@@ -13,7 +13,24 @@ export default function TermsPage() {
 
         <section>
           <h2>2. Service Description</h2>
-          <p>We provide an AI-powered tool to generate flashcards from your study materials.</p>
+          <p>Flashcards Generator is an AI-powered educational tool that:</p>
+          <ul>
+            <li>Analyzes text documents you upload (PDFs, plain text)</li>
+            <li>Automatically generates flashcards with questions and answers</li>
+            <li>Organizes flashcards by topics for efficient studying</li>
+            <li>Allows customization of flashcard quantity and content focus</li>
+          </ul>
+          <p>The service uses natural language processing to:</p>
+          <ul>
+            <li>Identify key concepts in your materials</li>
+            <li>Formulate relevant questions</li>
+            <li>Extract accurate answers</li>
+            <li>Adapt to different subject matters (languages, sciences, humanities)</li>
+          </ul>
+          <p className="notice">
+            <strong>Note:</strong> While we strive for accuracy, AI-generated content may require verification. 
+            Source documents are not stored after processing unless explicitly requested.
+          </p>
         </section>
 
         <section>

@@ -25,13 +25,16 @@ export default function TopicPage() {
         }
 
         const [topicResponse, flashcardsResponse] = await Promise.all([
-          axios.get(`http://localhost:8000/topics/${id}/?user_id=${storedUser.id}`, {
-            headers: {
-              Authorization: `Basic ${btoa(
-                `${storedUser.email}:${storedPassword}`
-              )}`,
-            },
-          }),
+          axios.get(
+            `http://localhost:8000/topics/${id}/?user_id=${storedUser.id}`,
+            {
+              headers: {
+                Authorization: `Basic ${btoa(
+                  `${storedUser.email}:${storedPassword}`
+                )}`,
+              },
+            }
+          ),
           axios.get(`http://localhost:8000/flashcards/?topic_id=${id}`, {
             headers: {
               Authorization: `Basic ${btoa(
@@ -76,7 +79,7 @@ export default function TopicPage() {
     <div className="topic-container">
       <div className="topic-header">
         <div className="header-content">
-          <motion.button 
+          <motion.button
             className="back-btn"
             onClick={() => navigate(-1)}
             whileHover={{ scale: 1.05 }}
@@ -87,7 +90,8 @@ export default function TopicPage() {
           <h1 className="topic-title">{topic?.name}</h1>
           <div className="header-meta">
             <span className="flashcards-count">
-              {flashcards.length} {flashcards.length === 1 ? 'flashcard' : 'flashcards'}
+              {flashcards.length}{" "}
+              {flashcards.length === 1 ? "flashcard" : "flashcards"}
             </span>
           </div>
         </div>
@@ -104,7 +108,8 @@ export default function TopicPage() {
           <>
             <div className="flashcards-header">
               <h2 className="knowledge-title">
-                <span className="knowledge-highlight">Test Your Knowledge</span> in {topic?.name}
+                <span className="knowledge-highlight">Test Your Knowledge</span>{" "}
+                in {topic?.name}
               </h2>
             </div>
             <div className="flashcards-grid">
@@ -112,11 +117,17 @@ export default function TopicPage() {
                 {flashcards.map((card) => (
                   <motion.div
                     key={card.id}
-                    className={`flashcard-card ${expandedCardId === card.id ? 'is-flipped' : ''}`}
-                    onClick={() => setExpandedCardId(card.id === expandedCardId ? null : card.id)}
+                    className={`flashcard-card ${
+                      expandedCardId === card.id ? "is-flipped" : ""
+                    }`}
+                    onClick={() =>
+                      setExpandedCardId(
+                        card.id === expandedCardId ? null : card.id
+                      )
+                    }
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ type: 'spring', stiffness: 300 }}
+                    transition={{ type: "spring", stiffness: 300 }}
                   >
                     <div className="flashcard-inner">
                       <div className="flashcard-front">
@@ -126,11 +137,14 @@ export default function TopicPage() {
                         </div>
                         <div className="flashcard-hint">Click to flip</div>
                       </div>
-                      
+
                       <div className="flashcard-back">
                         <div className="flashcard-answer">
                           <span className="answer-mark">!</span>
                           {card.answer}
+                        </div>
+                        <div className="ai-tag ai-tag-ribbon">
+                          AI-generated, for reference only
                         </div>
                       </div>
                     </div>

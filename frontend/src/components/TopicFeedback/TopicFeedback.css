@@ -89,6 +89,7 @@
 
 .submit-feedback-btn:disabled {
   cursor: not-allowed;
+  color: white;
 }
 
 .submit-feedback-btn.active:hover {
