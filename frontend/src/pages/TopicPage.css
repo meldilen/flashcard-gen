@@ -172,20 +172,6 @@
   line-height: 1.5;
 }
 
-.question-mark, .answer-mark {
-  display: inline-block;
-  margin-right: 0.5rem;
-  font-weight: bold;
-}
-
-.question-mark {
-  color: var(--primary);
-}
-
-.answer-mark {
-  color: var(--primary-dark);
-}
-
 .flashcard-hint {
   margin-top: 1rem;
   font-size: 0.8rem;
@@ -227,4 +213,16 @@
   padding: 1rem;
   border-radius: var(--radius-medium);
   margin: 2rem;
+}
+
+.ai-confidence-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 500;
 }

@@ -61,13 +61,21 @@
 }
 
 .flashcard-front {
-  background: linear-gradient(135deg, var(--primary-light) 22%, var(--secondary-light) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--primary-light) 42%,
+    var(--secondary-light) 100%
+  );
   color: var(--text-dark);
 }
 
 .flashcard-back {
   transform: rotateY(180deg);
-  background: linear-gradient(135deg, var(--secondary-light) 22%, var(--primary-light) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--secondary-light) 42%,
+    var(--primary-light) 100%
+  );
   color: var(--text-dark);
 }
 
@@ -77,7 +85,8 @@
   margin-bottom: 1rem;
 }
 
-.question-mark, .answer-mark {
+.question-mark,
+.answer-mark {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -86,7 +95,7 @@
   border-radius: 50%;
   margin-right: 12px;
   font-size: 1rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .question-mark {
@@ -96,7 +105,7 @@
 
 .answer-mark {
   background: white;
-  color: var(--success);
+  color: var(--primary);
 }
 
 .flashcard-hint {
@@ -107,7 +116,6 @@
 }
 
 .feedback-section {
-  margin-top: 2rem;
   padding-top: 2rem;
   border-top: 1px solid var(--border-color);
 }
@@ -124,4 +132,44 @@
   text-align: center;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
+}
+
+.ai-confidence-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.regeneration-notice {
+  border-radius: var(--radius-medium);
+  padding: 1.25rem;
+  margin: 2rem 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  box-shadow: var(--shadow-soft);
+}
+
+.notice-icon {
+  font-size: 1.5rem;
+  margin-top: 0.2rem;
+}
+
+.notice-content h4 {
+  margin: 0 0 0.5rem 0;
+  color: var(--primary-dark);
+  font-size: 1rem;
+}
+
+.notice-content p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
 }

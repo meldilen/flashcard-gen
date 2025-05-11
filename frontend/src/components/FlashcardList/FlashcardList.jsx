@@ -41,6 +41,9 @@ export default function FlashcardList({
                 </div>
 
                 <div className="flashcard-back">
+                  <div className="ai-confidence-badge">
+                    {card.confidence * 100}% confidence
+                  </div>
                   <div className="flashcard-answer">
                     <span className="answer-mark">!</span>
                     {card.answer}
@@ -53,6 +56,17 @@ export default function FlashcardList({
             </motion.div>
           ))}
         </AnimatePresence>
+      </div>
+
+      <div className="regeneration-notice">
+        <div className="notice-icon">🔄</div>
+        <div className="notice-content">
+          <h4>Not satisfied with the results?</h4>
+          <p>
+            Delete these cards in your profile and try generating again. 
+            A more specific topic name often improves quality!
+          </p>
+        </div>
       </div>
 
       {topicId && (

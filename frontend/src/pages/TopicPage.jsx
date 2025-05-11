@@ -132,17 +132,16 @@ export default function TopicPage() {
                     <div className="flashcard-inner">
                       <div className="flashcard-front">
                         <div className="flashcard-question">
-                          <span className="question-mark">?</span>
                           {card.question}
                         </div>
                         <div className="flashcard-hint">Click to flip</div>
                       </div>
 
                       <div className="flashcard-back">
-                        <div className="flashcard-answer">
-                          <span className="answer-mark">!</span>
-                          {card.answer}
+                        <div className="ai-confidence-badge">
+                          {card.confidence * 100}% confidence
                         </div>
+                        <div className="flashcard-answer">{card.answer}</div>
                         <div className="ai-tag ai-tag-ribbon">
                           AI-generated, for reference only
                         </div>

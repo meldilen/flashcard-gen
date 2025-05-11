@@ -3,7 +3,6 @@ import axios from "axios";
 import DocumentUpload from "../components/DocumentUploader/DocumentUpload";
 import UserSettings from "../components/UserSettings/UserSettings";
 import FlashcardList from "../components/FlashcardList/FlashcardList";
-import TopicFeedback from "../components/TopicFeedback/TopicFeedback";
 import { useNavigate } from "react-router-dom";
 import "./GeneratorPage.css";
 
