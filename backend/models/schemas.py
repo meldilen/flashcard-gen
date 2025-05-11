@@ -40,6 +40,7 @@ class DocumentProcessRequest(BaseModel):
 class UserBase(BaseModel):
     email: EmailStr
     username: str
+    optOutCommunications: bool = False
 
 class UserCreate(UserBase):
     password: str

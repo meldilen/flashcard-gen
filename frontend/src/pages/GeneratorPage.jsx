@@ -33,8 +33,8 @@ export default function GeneratorPage({ onError }) {
       setError("Please enter a topic name");
       return false;
     }
-    if (cardCount < 1 || cardCount > 20) {
-      setError("Please select between 1 and 20 flashcards");
+    if (cardCount < 1 || cardCount > 15) {
+      setError("Please select between 1 and 15 flashcards");
       return false;
     }
     setError("");
