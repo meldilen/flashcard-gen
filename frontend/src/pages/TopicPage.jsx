@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import "./TopicPage.css";
 
 export default function TopicPage() {
@@ -10,6 +11,7 @@ export default function TopicPage() {
   const [flashcards, setFlashcards] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [expandedCardId, setExpandedCardId] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,7 +25,7 @@ export default function TopicPage() {
         }
 
         const [topicResponse, flashcardsResponse] = await Promise.all([
-          axios.get(`http://localhost:8000/topics/${id}`, {
+          axios.get(`http://localhost:8000/topics/${id}/?user_id=${storedUser.id}`, {
             headers: {
               Authorization: `Basic ${btoa(
                 `${storedUser.email}:${storedPassword}`
@@ -73,10 +75,22 @@ export default function TopicPage() {
   return (
     <div className="topic-container">
       <div className="topic-header">
-        <button className="back-btn" onClick={() => navigate(-1)}>
-          &larr; Back
-        </button>
-        <h1>{topic?.name}</h1>
+        <div className="header-content">
+          <motion.button 
+            className="back-btn"
+            onClick={() => navigate(-1)}
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 300 }}
+          >
+            <span className="back-arrow">&larr;</span> Back to topics
+          </motion.button>
+          <h1 className="topic-title">{topic?.name}</h1>
+          <div className="header-meta">
+            <span className="flashcards-count">
+              {flashcards.length} {flashcards.length === 1 ? 'flashcard' : 'flashcards'}
+            </span>
+          </div>
+        </div>
       </div>
 
       <div className="flashcards-container">
@@ -87,14 +101,44 @@ export default function TopicPage() {
             <p>Try generating new flashcards</p>
           </div>
         ) : (
-          <div className="flashcards-grid">
-            {flashcards.map((card) => (
-              <div key={card.id} className="flashcard">
-                <div className="flashcard-front">{card.question}</div>
-                <div className="flashcard-back">{card.answer}</div>
-              </div>
-            ))}
-          </div>
+          <>
+            <div className="flashcards-header">
+              <h2 className="knowledge-title">
+                <span className="knowledge-highlight">Test Your Knowledge</span> in {topic?.name}
+              </h2>
+            </div>
+            <div className="flashcards-grid">
+              <AnimatePresence>
+                {flashcards.map((card) => (
+                  <motion.div
+                    key={card.id}
+                    className={`flashcard-card ${expandedCardId === card.id ? 'is-flipped' : ''}`}
+                    onClick={() => setExpandedCardId(card.id === expandedCardId ? null : card.id)}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ type: 'spring', stiffness: 300 }}
+                  >
+                    <div className="flashcard-inner">
+                      <div className="flashcard-front">
+                        <div className="flashcard-question">
+                          <span className="question-mark">?</span>
+                          {card.question}
+                        </div>
+                        <div className="flashcard-hint">Click to flip</div>
+                      </div>
+                      
+                      <div className="flashcard-back">
+                        <div className="flashcard-answer">
+                          <span className="answer-mark">!</span>
+                          {card.answer}
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </div>
+          </>
         )}
       </div>
     </div>

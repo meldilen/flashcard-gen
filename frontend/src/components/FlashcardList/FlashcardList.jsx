@@ -28,7 +28,7 @@ export default function FlashcardList({ flashcards, topicName, topicId, onSubmit
                     <span className="question-mark">?</span>
                     {card.question}
                   </div>
-                  <div className="flashcard-hint">Click to reveal answer</div>
+                  <div className="flashcard-hint">Click to flip</div>
                 </div>
                 
                 <div className="flashcard-back">

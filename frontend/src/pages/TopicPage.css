@@ -1,70 +1,216 @@
+:root {
+  --primary: #6e926e;
+  --primary-dark: #609463;
+  --primary-light: #E8F5E9;
+  --background-light: #f9f9f9;
+  --text-dark: #333;
+  --text-muted: #666;
+  --border-color: #e0e0e0;
+  --radius-medium: 8px;
+  --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --header-gradient: linear-gradient(135deg, #678969 0%, #82d887 100%);
+}
+
 .topic-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
+  min-height: 100vh;
+  background-color: white;
 }
 
 .topic-header {
-  display: flex;
-  align-items: center;
+  background: var(--header-gradient);
+  border-radius: var(--radius-medium);
+  padding: 1.5rem;
   margin-bottom: 2rem;
-  gap: 1rem;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.topic-header::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 100%;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="rgba(255,255,255,0.1)"><circle cx="70" cy="30" r="20"/><circle cx="80" cy="70" r="20"/></svg>');
+}
+
+.header-content {
+  position: relative;
+  z-index: 1;
 }
 
 .back-btn {
-  background: none;
+  background: rgba(255, 255, 255, 0.2);
   border: none;
-  font-size: 1.2rem;
+  font-size: 1rem;
   cursor: pointer;
-  color: var(--primary);
-  padding: 0.5rem;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+  backdrop-filter: blur(5px);
 }
 
 .back-btn:hover {
-  color: var(--primary-dark);
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateX(-3px);
+}
+
+.back-arrow {
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+  transition: transform 0.3s;
+}
+
+.back-btn:hover .back-arrow {
+  transform: translateX(-3px);
+}
+
+.topic-title {
+  font-size: 2rem;
+  margin: 0.5rem 0;
+  font-weight: 700;
+}
+
+.header-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.flashcards-count {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.3rem 0.8rem;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  backdrop-filter: blur(5px);
 }
 
 .flashcards-container {
   margin-top: 2rem;
+  width: 100%;
+}
+
+.flashcards-header {
+  margin-bottom: 1.5rem;
+}
+
+.knowledge-title {
+  font-size: 1.5rem;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.knowledge-highlight {
+  color: var(--primary-dark);
+  font-weight: 600;
 }
 
 .flashcards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
+  width: 100%;
 }
 
-.flashcard {
-  background: var(--background-light);
+.flashcard-card {
+  background: white;
   border-radius: var(--radius-medium);
   padding: 1.5rem;
   box-shadow: var(--shadow-soft);
-  min-height: 200px;
+  min-height: 150px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   border-left: 4px solid var(--primary);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
 }
 
-.flashcard-front {
-  font-weight: 600;
-  color: var(--text-dark);
-  margin-bottom: 1rem;
+.flashcard-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-light);
+  opacity: 0;
+  transition: opacity 0.2s;
 }
 
-.flashcard-back {
+.flashcard-card:hover::before {
+  opacity: 0.1;
+}
+
+.flashcard-question, .flashcard-answer {
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.question-mark, .answer-mark {
+  display: inline-block;
+  margin-right: 0.5rem;
+  font-weight: bold;
+}
+
+.question-mark {
+  color: var(--primary);
+}
+
+.answer-mark {
+  color: var(--primary-dark);
+}
+
+.flashcard-hint {
+  margin-top: 1rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
-  border-top: 1px solid var(--border-color);
-  padding-top: 1rem;
+  text-align: center;
+  opacity: 0.7;
 }
 
 .empty-state {
   text-align: center;
-  padding: 2rem;
+  padding: 3rem;
   color: var(--text-muted);
+  background: white;
+  border-radius: var(--radius-medium);
+  box-shadow: var(--shadow-soft);
+  margin-top: 2rem;
 }
 
 .empty-icon {
   font-size: 3rem;
   margin-bottom: 1rem;
+  display: block;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #d32f2f;
+  background: #ffebee;
+  padding: 1rem;
+  border-radius: var(--radius-medium);
+  margin: 2rem;
 }
