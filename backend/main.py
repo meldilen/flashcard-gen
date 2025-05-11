@@ -186,7 +186,7 @@ def delete_topic(
 @app.patch("/topics/{topic_id}/feedback", response_model=schemas.Topic)
 def update_topic_feedback(
     topic_id: str,
-    feedback: float,
+    feedback: schemas.FeedbackUpdate,
     current_user: schemas.UserResponse = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
@@ -197,7 +197,7 @@ def update_topic_feedback(
             detail="Topic not found"
         )
     
-    updated_topic = crud.update_topic_feedback(db, topic_id, feedback)
+    updated_topic = crud.update_topic_feedback(db, topic_id, feedback.feedback)
     if not updated_topic:
         raise HTTPException(
             status_code=404,
