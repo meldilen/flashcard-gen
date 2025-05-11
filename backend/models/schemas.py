@@ -9,6 +9,9 @@ class TopicCreate(TopicBase):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     user_id: str
 
+class FeedbackUpdate(BaseModel):
+    feedback: Optional[float] = None
+
 class Topic(TopicBase):
     id: str
     user_id: str
