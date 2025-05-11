@@ -116,7 +116,7 @@ export default function GeneratorPage({ onError }) {
     <div className="generator-page">
       <div className="generator-header">
         <h1>AI Flashcard Generator</h1>
-        <p className="subtitle">Upload your document and get instant flashcards</p>
+        <p className="subtitle">Upload your document and get flashcards</p>
       </div>
 
       <div className="generator-container">
@@ -142,13 +142,12 @@ export default function GeneratorPage({ onError }) {
 
         <div className="output-section">
           {flashcards.length > 0 ? (
-            <>
-              <div className="flashcards-header">
-                <h2>Generated Flashcards: {topic}</h2>
-                {topicId && <TopicFeedback topicId={topicId} onSubmit={handleFeedback} />}
-              </div>
-              <FlashcardList flashcards={flashcards} topicName={topic} />
-            </>
+            <FlashcardList 
+              flashcards={flashcards} 
+              topicName={topic} 
+              topicId={topicId}
+              onSubmitFeedback={handleFeedback}
+            />
           ) : (
             <div className="empty-state">
               <div className="empty-icon">📄</div>

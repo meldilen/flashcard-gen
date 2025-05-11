@@ -1,47 +1,145 @@
-.topic-feedback {
-    background: #f9f9f9;
-    border-radius: 8px;
-    padding: 20px;
-    margin-top: 30px;
-    text-align: center;
+.feedback-card {
+  width: 100%;
+  max-width: 480px;
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  margin: 0 auto;
+}
+
+.feedback-header {
+  margin-bottom: 1.5rem;
+}
+
+.feedback-title {
+  font-size: 1.4rem;
+  color: #2d3436;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.feedback-subtitle {
+  color: #636e72;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.emoji-rating-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem 0;
+}
+
+.emoji-rating-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  flex: 1;
+}
+
+.emoji-wrapper {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  margin-bottom: 0.5rem;
+}
+
+.emoji {
+  font-size: 1.8rem;
+  transition: transform 0.2s ease;
+}
+
+.emoji-rating-item.active .emoji {
+  transform: scale(1.15);
+}
+
+.emoji-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.submit-feedback-btn {
+  background: linear-gradient(135deg, var(--primary-soft), var(--primary-muted));
+  color: #adb5bd;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 240px;
+  margin-top: 0.5rem;
+}
+
+.submit-feedback-btn.active {
+  background: linear-gradient(135deg, #91e6a0 0%, #4e983e 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(64, 192, 87, 0.2);
+}
+
+.submit-feedback-btn:disabled {
+  cursor: not-allowed;
+}
+
+.submit-feedback-btn.active:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(64, 192, 87, 0.3);
+}
+
+.feedback-success {
+  padding: 1rem 0;
+}
+
+.success-icon-wrapper {
+  width: 60px;
+  height: 60px;
+  background: #ebfbee;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+}
+
+.success-icon {
+  font-size: 1.8rem;
+  color: #40c057;
+  font-weight: bold;
+}
+
+.success-title {
+  font-size: 1.3rem;
+  color: #2d3436;
+  margin-bottom: 0.5rem;
+}
+
+.success-message {
+  color: #636e72;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 480px) {
+  .feedback-card {
+    padding: 1.5rem;
   }
   
-  .rating-stars {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin: 15px 0;
+  .emoji-wrapper {
+    width: 44px;
+    height: 44px;
   }
   
-  .star {
-    background: none;
-    border: none;
-    font-size: 24px;
-    color: #ccc;
-    cursor: pointer;
-    transition: color 0.2s;
-    padding: 0 5px;
+  .emoji {
+    font-size: 1.6rem;
   }
-  
-  .star.active {
-    color: #ffc107;
-  }
-  
-  .topic-feedback button {
-    background: #4a6fa5;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .topic-feedback button:disabled {
-    background: #ccc;
-    cursor: not-allowed;
-  }
-  
-  .topic-feedback button:hover:not(:disabled) {
-    background: #3a5a80;
-  }
+}

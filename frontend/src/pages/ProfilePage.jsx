@@ -13,7 +13,7 @@ export default function ProfilePage() {
     username: "",
     email: "",
     newPassword: "",
-    optOutCommunications: false
+    optOutCommunications: false,
   });
   const navigate = useNavigate();
 
@@ -42,7 +42,7 @@ export default function ProfilePage() {
                 `${storedUser.email}:${storedPassword}`
               )}`,
             },
-          })
+          }),
         ]);
 
         setUser(userResponse.data);
@@ -50,7 +50,8 @@ export default function ProfilePage() {
           username: userResponse.data.username,
           email: userResponse.data.email,
           newPassword: "",
-          optOutCommunications: userResponse.data.optOutCommunications || false
+          optOutCommunications:
+            userResponse.data.opt_out_communications || false,
         });
         setTopics(topicsResponse.data);
       } catch (err) {
@@ -121,13 +122,15 @@ export default function ProfilePage() {
       setEditMode(false);
       setError(null);
     } catch (err) {
-      setError(err.response?.data?.message || "Update failed. Please try again.");
+      setError(
+        err.response?.data?.message || "Update failed. Please try again."
+      );
     }
   };
 
   const handleDeleteTopic = async (topicId) => {
     if (!window.confirm("Are you sure you want to delete this topic?")) return;
-    
+
     try {
       const storedUser = JSON.parse(localStorage.getItem("user"));
       await axios.delete(`http://localhost:8000/topics/${topicId}`, {
@@ -146,18 +149,27 @@ export default function ProfilePage() {
   const toggleOptOut = () => {
     setFormData({
       ...formData,
-      optOutCommunications: !formData.optOutCommunications
+      optOutCommunications: !formData.optOutCommunications,
     });
   };
 
-  if (loading) return (
-    <div className="loading-container">
-      <div className="loading-spinner"></div>
-      <p>Loading your profile...</p>
-    </div>
-  );
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
+        <p>Loading your profile...</p>
+      </div>
+    );
+  }
 
-  if (!user) return <div className="error-message">Please log in to view your profile</div>;
+  if (!user) {
+    return (
+      <div className="error-message">
+        <span className="error-icon">⚠️</span>
+        Please log in to view your profile
+      </div>
+    );
+  }
 
   return (
     <div className="profile-container">
@@ -175,152 +187,174 @@ export default function ProfilePage() {
 
       <div className="profile-card">
         {editMode ? (
-          <>
-            <h2>Edit Profile</h2>
-            <div className="form-group">
-              <label htmlFor="username">Username</label>
-              <input
-                id="username"
-                type="text"
-                value={formData.username}
-                onChange={(e) =>
-                  setFormData({ ...formData, username: e.target.value })
-                }
-                placeholder="Enter your username"
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input
-                id="email"
-                type="email"
-                value={formData.email}
-                onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
-                }
-                placeholder="Enter your email"
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="newPassword">New Password (optional)</label>
-              <input
-                id="newPassword"
-                type="password"
-                value={formData.newPassword}
-                onChange={(e) =>
-                  setFormData({ ...formData, newPassword: e.target.value })
-                }
-                placeholder="Enter new password"
-              />
-              <p className="form-hint">Leave blank to keep current password</p>
-            </div>
-
-            <div className="preference-toggle">
-              <label>
-                <input
-                  type="checkbox"
-                  checked={formData.optOutCommunications}
-                  onChange={toggleOptOut}
-                />
-                <span className="toggle-switch"></span>
-                <span>Opt out of promotional emails</span>
-              </label>
-              <p className="form-hint">
-                Uncheck this box if you want to receive occasional updates and offers
-              </p>
-            </div>
-
-            <div className="form-actions">
-              <button 
-                className="primary-btn"
-                onClick={handleUpdate}
-              >
-                Save Changes
-              </button>
-              <button 
-                className="secondary-btn"
-                onClick={() => setEditMode(false)}
-              >
-                Cancel
-              </button>
-            </div>
-          </>
+          <EditProfileForm
+            formData={formData}
+            setFormData={setFormData}
+            handleUpdate={handleUpdate}
+            setEditMode={setEditMode}
+            toggleOptOut={toggleOptOut}
+          />
         ) : (
-          <>
-            <div className="profile-info">
-              <div className="info-item">
-                <span className="info-label">Username</span>
-                <span className="info-value">{user.username}</span>
-              </div>
-              <div className="info-item">
-                <span className="info-label">Email</span>
-                <span className="info-value">{user.email}</span>
-              </div>
-              <div className="info-item">
-                <span className="info-label">Email Preferences</span>
-                <span className="info-value">
-                  {user.optOutCommunications ? "No promotional emails" : "Subscribed to updates"}
-                </span>
-              </div>
-            </div>
-
-            <button 
-              className="primary-btn edit-btn"
-              onClick={() => setEditMode(true)}
-            >
-              Edit Profile
-            </button>
-          </>
+          <ProfileView user={user} setEditMode={setEditMode} />
         )}
       </div>
 
-      <div className="topics-card">
-        <div className="card-header">
-          <h2>Your Topics</h2>
-          <span className="topics-count">{topics.length}</span>
+      <TopicsSection
+        topics={topics}
+        navigate={navigate}
+        handleDeleteTopic={handleDeleteTopic}
+      />
+    </div>
+  );
+}
+
+function EditProfileForm({
+  formData,
+  setFormData,
+  handleUpdate,
+  setEditMode,
+  toggleOptOut,
+}) {
+  return (
+    <>
+      <h2>Edit Profile</h2>
+      <div className="form-group">
+        <label htmlFor="username">Username</label>
+        <input
+          id="username"
+          type="text"
+          value={formData.username}
+          onChange={(e) =>
+            setFormData({ ...formData, username: e.target.value })
+          }
+          placeholder="Enter your username"
+        />
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          value={formData.email}
+          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          placeholder="Enter your email"
+        />
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="newPassword">New Password (optional)</label>
+        <input
+          id="newPassword"
+          type="password"
+          value={formData.newPassword}
+          onChange={(e) =>
+            setFormData({ ...formData, newPassword: e.target.value })
+          }
+          placeholder="Enter new password"
+        />
+        <p className="form-hint">Leave blank to keep current password</p>
+      </div>
+
+      <div className="preference-toggle">
+        <label>
+          <input
+            type="checkbox"
+            checked={formData.optOutCommunications}
+            onChange={toggleOptOut}
+          />
+          <span className="toggle-switch"></span>
+          <span>Opt out of promotional emails</span>
+        </label>
+      </div>
+
+      <div className="form-actions">
+        <button className="primary-btn" onClick={handleUpdate}>
+          Save Changes
+        </button>
+        <button className="secondary-btn" onClick={() => setEditMode(false)}>
+          Cancel
+        </button>
+      </div>
+    </>
+  );
+}
+
+function ProfileView({ user, setEditMode }) {
+  return (
+    <>
+      <div className="profile-info">
+        <div className="info-item">
+          <span className="info-label">Username</span>
+          <span className="info-value">{user.username}</span>
         </div>
-
-        {topics.length === 0 ? (
-          <div className="empty-state">
-            <div className="empty-icon">📚</div>
-            <h3>No topics yet</h3>
-            <p>Generate flashcards to see your topics here</p>
-            <button 
-              className="primary-btn"
-              onClick={() => navigate("/generate")}
-            >
-              Create Flashcards
-            </button>
-          </div>
-        ) : (
-          <ul className="topics-list">
-            {topics.map((topic) => (
-              <li key={topic.id} className="topic-item">
-                <div 
-                  className="topic-content"
-                  onClick={() => navigate(`/topics/${topic.id}`)}
-                >
-                  <h3>{topic.name}</h3>
-                  <p className="topic-date">
-                    Created: {new Date(topic.created_at).toLocaleDateString()}
-                  </p>
-                </div>
-                <button 
-                  className="delete-btn"
-                  onClick={() => handleDeleteTopic(topic.id)}
-                  aria-label="Delete topic"
-                >
-                  <svg viewBox="0 0 24 24">
-                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-                  </svg>
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
+        <div className="info-item">
+          <span className="info-label">Email</span>
+          <span className="info-value">{user.email}</span>
+        </div>
+        <div className="info-item">
+          <span className="info-label">Email Preferences</span>
+          <span className="info-value">
+            {user.opt_out_communications
+              ? "No promotional emails"
+              : "Subscribed to updates"}
+          </span>
+        </div>
       </div>
+
+      <button
+        className="primary-btn edit-btn"
+        onClick={() => setEditMode(true)}
+      >
+        Edit Profile
+      </button>
+    </>
+  );
+}
+
+function TopicsSection({ topics, navigate, handleDeleteTopic }) {
+  return (
+    <div className="topics-card">
+      <div className="card-header">
+        <h2>Your Topics</h2>
+        <span className="topics-count">{topics.length}</span>
+      </div>
+
+      {topics.length === 0 ? (
+        <div className="empty-state">
+          <div className="empty-icon">📚</div>
+          <h3>No topics yet</h3>
+          <p>Generate flashcards to see your topics here</p>
+          <button className="primary-btn" onClick={() => navigate("/generate")}>
+            Create Flashcards
+          </button>
+        </div>
+      ) : (
+        <ul className="topics-list">
+          {topics.map((topic) => (
+            <li key={topic.id} className="topic-item">
+              <div
+                className="topic-content"
+                onClick={() => navigate(`/topics/${topic.id}`)}
+              >
+                <h3>{topic.name}</h3>
+              </div>
+              <button
+                className="delete-btn"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleDeleteTopic(topic.id);
+                }}
+                aria-label="Delete topic"
+              >
+                <svg viewBox="0 0 24 24">
+                  <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                </svg>
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }

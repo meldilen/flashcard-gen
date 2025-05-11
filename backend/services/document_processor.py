@@ -5,7 +5,6 @@ import io
 
 FILE_SIZE_LIMIT = 10 * 1024 * 1024  # 10MB
 
-#should be changed
 class DocumentProcessor:
     @staticmethod
     async def extract_text(file: UploadFile) -> str:

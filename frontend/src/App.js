@@ -7,6 +7,7 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import TermsPage from "./pages/TermsPage";
+import TopicPage from "./pages/TopicPage";
 import "./App.css";
 
 export default function App() {
@@ -36,6 +37,7 @@ export default function App() {
             <Route path="/generate" element={<GeneratorPage onError={setGlobalError}/>} />
             <Route path="/privacy" element={<PrivacyPolicyPage />} />
             <Route path="/terms" element={<TermsPage />} />
+            <Route path="/topics/:id" element={<TopicPage />} />
           </Routes>
         </main>
         <Footer />

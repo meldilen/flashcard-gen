@@ -48,9 +48,15 @@ class UserUpdate(BaseModel):
     username: Optional[str] = None
     email: Optional[EmailStr] = None
     password: Optional[str] = None
+    opt_out_communications: Optional[bool] = Field(
+        None,
+        alias="optOutCommunications",
+        validation_alias="optOutCommunications"
+    )
 
 class UserResponse(UserBase):
     id: str
+    opt_out_communications: bool = False
         
     class Config:
         from_attributes = True

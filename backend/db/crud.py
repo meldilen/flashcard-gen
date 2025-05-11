@@ -13,7 +13,8 @@ def create_user(db: Session, user_data: schemas.UserCreate):
     db_user = User(
         username=user_data.username,
         email=user_data.email,
-        hashed_password=hashed_password)
+        hashed_password=hashed_password,
+        opt_out_communications=False)
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
@@ -36,6 +37,8 @@ def update_user(db: Session, user_id: str, user_data: schemas.UserUpdate):
         db_user.email = user_data.email
     if user_data.password:
         db_user.hashed_password = pwd_context.hash(user_data.password)
+    if user_data.opt_out_communications is not None:
+        db_user.opt_out_communications = user_data.opt_out_communications
     db.commit()
     db.refresh(db_user)
     return db_user
@@ -45,7 +48,8 @@ def create_topic(db: Session, topic_data: schemas.TopicCreate):
     db_topic = Topic(
         id=topic_data.id,
         name=topic_data.name,
-        user_id=topic_data.user_id)
+        user_id=topic_data.user_id,
+        feedback=None)
     db.add(db_topic)
     db.commit()
     db.refresh(db_topic)
@@ -68,7 +72,9 @@ def create_flashcards(db: Session, flashcards_data: list):
 
 
 def get_user_topics(db: Session, user_id: str):
-    return db.query(Topic).filter(Topic.user_id == user_id).all()
+    return db.query(Topic)\
+             .filter(Topic.user_id == user_id)\
+             .all()
 
 
 def delete_topic(db: Session, topic_id: str):
@@ -91,12 +97,6 @@ def get_topic_flashcards(db: Session, user_id: str, topic_id: str = None):
 def get_topic(db: Session, topic_id: str):
     return db.query(Topic).filter(Topic.id == topic_id).first()
 
-
-def get_topic_flashcards(db: Session, user_id: str, topic_id: str = None):
-    query = db.query(Flashcard).filter(Flashcard.user_id == user_id)
-    if topic_id:
-        query = query.filter(Flashcard.topic_id == topic_id)
-    return query.all()
 
 def delete_flashcards_by_topic(db: Session, topic_id: str):
     db.query(Flashcard).filter(Flashcard.topic_id == topic_id).delete()

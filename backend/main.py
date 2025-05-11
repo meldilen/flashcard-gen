@@ -31,7 +31,8 @@ def convert_to_user_response(db_user):
     return schemas.UserResponse(
         id=db_user.id,
         username=db_user.username,
-        email=db_user.email
+        email=db_user.email,
+        opt_out_communications=db_user.opt_out_communications
     )
 
 
