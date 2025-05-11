@@ -13,7 +13,8 @@ def create_user(db: Session, user_data: schemas.UserCreate):
     db_user = User(
         username=user_data.username,
         email=user_data.email,
-        hashed_password=hashed_password)
+        hashed_password=hashed_password,
+        optOutCommunications=False)
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
@@ -36,6 +37,8 @@ def update_user(db: Session, user_id: str, user_data: schemas.UserUpdate):
         db_user.email = user_data.email
     if user_data.password:
         db_user.hashed_password = pwd_context.hash(user_data.password)
+    if user_data.optOutCommunications is not None:
+        db_user.optOutCommunications = user_data.optOutCommunications
     db.commit()
     db.refresh(db_user)
     return db_user

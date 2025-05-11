@@ -40,6 +40,7 @@ class DocumentProcessRequest(BaseModel):
 class UserBase(BaseModel):
     email: EmailStr
     username: str
+    optOutCommunications: bool
 
 class UserCreate(UserBase):
     password: str
@@ -48,6 +49,7 @@ class UserUpdate(BaseModel):
     username: Optional[str] = None
     email: Optional[EmailStr] = None
     password: Optional[str] = None
+    optOutCommunications: Optional[bool] = None
 
 class UserResponse(UserBase):
     id: str

@@ -22,12 +22,12 @@ export default function UserSettings({
         />
       </div>
       <div className="form-group">
-        <label htmlFor="cardCount">Cards to generate (1-20):</label>
+        <label htmlFor="cardCount">Cards to generate (1-15):</label>
         <input
           id="cardCount"
           type="number"
           min="1"
-          max="20"
+          max="15"
           value={cardCount}
           onChange={(e) => onCardCountChange(e.target.value)}
           disabled={isLoading}

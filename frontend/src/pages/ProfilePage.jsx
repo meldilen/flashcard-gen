@@ -50,7 +50,7 @@ export default function ProfilePage() {
           username: userResponse.data.username,
           email: userResponse.data.email,
           newPassword: "",
-          optOutCommunications: userResponse.data.optOutCommunications || false
+          optOutCommunications: userResponse.data.optOutCommunications
         });
         setTopics(topicsResponse.data);
       } catch (err) {
