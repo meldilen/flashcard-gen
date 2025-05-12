@@ -21,6 +21,8 @@ An AI-powered tool that automatically generates study flashcards from your docum
 | Step | Command |
 |------|---------|
 | 1. Clone repo | `git clone https://github.com/meldilen/flashcard-gen.git` |
-| 2. Backend setup | `cd backend && pip install -r requirements.txt` |
-| 3. Frontend setup | `cd frontend && npm install` |
-| 4. Run | `npm start` (frontend), `python main.py` (backend) |
+| 2. Download [ollama](https://ollama.com/download) | `curl -fsSL https://ollama.com/install.sh \| sh` |
+| 3. Download and run models | `ollama run llama3.1:8b && ollama run mxbai-embed-large` |
+| 4. Backend setup | `cd backend && pip install -r requirements.txt` |
+| 5. Frontend setup | `cd frontend && npm install` |
+| 6. Run | `npm start` (frontend), `python main.py` (backend) |
